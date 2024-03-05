@@ -25,9 +25,10 @@ function App() {
                                 newLike[i] += 1;
                                 setLike(newLike)
                             }}>👍</span>{like[i]}</h4>
-                        <p>2월 24일 발행</p>
+                        <p>{ Date().getHours()}</p>
                         <button onClick={()=>{
-                            let tmp = subTitle.splice(i)
+                            let tmp = [...subTitle];
+                            tmp.splice(i,1);
                             setSubtitle(tmp)
                         }}>삭제</button>
                     </div>
@@ -35,12 +36,15 @@ function App() {
             })}
             <input onChange={(e) => {
                 setInputValue(e.target.value);
-                console.log(e.target.value);
             }} />
             <button onClick={(e) => {
-                setSubtitle(subTitle.concat(inputValue));
-                setLike(like.concat(0));
-            }}>등록</button>
+                if (inputValue == '')
+                    alert("concept is empty!!")
+                else {
+                    setSubtitle(subTitle.concat(inputValue));
+                    setLike(like.concat(0));
+                }
+            }}>글발행</button>
 
             {
                 modal == true ? <Modal subTitle={subTitle} title={title} /> : null
